@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   final _controller = TextEditingController();
   List todoList = [
     ['Learn web development', false],
-    ['Drink Coffee', false],
+    ['Drink Coffee Twice', false],
     ['Learn flutter', false],
     ['Learn react', false],
   ];
