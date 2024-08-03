@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/pages/home_page.dart';
 import 'package:flutter_todo/utils/deleted_list.dart';
-import 'package:flutter_todo/utils/todo_list.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DeletedPage extends StatefulWidget {
@@ -150,82 +149,18 @@ class _DeletedPageState extends State<DeletedPage> {
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade300,
       appBar: AppBar(
+        toolbarHeight: 70,
         centerTitle: true,
         title: const Text(
           'Deleted Tasks',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20,
-            fontFamily: 'Poppins',
             color: Colors.white,
           ),
         ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.deepPurple,
-              ),
-              child: ListTile(
-                title: const Center(
-                  child: Text(
-                    'Simple ToDo',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                      (route) => false);
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text(
-                'ToDo List',
-                style: TextStyle(
-                  fontSize: 19,
-                  color: Colors.deepPurple,
-                ),
-              ),
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                    (route) => false);
-              },
-            ),
-            const ListTile(
-              title: Text(
-                'Deleted Tasks',
-                style: TextStyle(
-                  fontSize: 19,
-                  color: Colors.deepPurple,
-                ),
-              ),
-            ),
-            ListTile(
-              title: const Text(
-                'About Simple ToDo',
-                style: TextStyle(
-                  fontSize: 19,
-                  color: Colors.deepPurple,
-                ),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
       ),
       body: todoList.isEmpty
           ? const Center(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/pages/about_page.dart';
 import 'package:flutter_todo/pages/deleted_tasks.dart';
 import 'package:flutter_todo/utils/todo_list.dart';
 import 'package:path_provider/path_provider.dart';
@@ -101,6 +102,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void saveNewTask() {
+    if (_controller.text.isEmpty) {
+      return;
+    } else if (_controller.text.contains('%20')) {
+      return;
+    } else if (_controller.text.contains('\n')) {
+      return;
+    } else if (_controller.text.trim().isEmpty) {
+      return;
+    }
     setState(() {
       writeTasks('${_controller.text}%20false');
       todoList.add([_controller.text, false]);
@@ -135,11 +145,12 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.deepPurple.shade300,
       appBar: AppBar(
         centerTitle: true,
+        toolbarHeight: 70,
         title: const Text(
           'Simple ToDo',
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 22,
             fontFamily: 'Poppins',
             color: Colors.white,
           ),
@@ -148,6 +159,7 @@ class _HomePageState extends State<HomePage> {
         foregroundColor: Colors.white,
       ),
       drawer: Drawer(
+        backgroundColor: Colors.deepPurple.shade300,
         child: ListView(
           children: [
             Container(
@@ -205,7 +217,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AboutPage()),
+                );
               },
             ),
           ],
@@ -224,13 +239,18 @@ class _HomePageState extends State<HomePage> {
           : Padding(
               padding: const EdgeInsets.only(bottom: 90),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  Text(
-                    'Today is ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Text(
+                      textAlign: TextAlign.left,
+                      'Today is ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
