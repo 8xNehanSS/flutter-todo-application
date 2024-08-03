@@ -18,7 +18,6 @@ jobs:
           channel: "beta"
       - run: flutter pub get
       - run: flutter build apk
-      - run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/simpletodo.apk
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/flutter-apk/app-release.apk"
