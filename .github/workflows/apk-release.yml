@@ -15,7 +15,7 @@ jobs:
           java-version: "12.x"
       - uses: subosito/flutter-action@v1
         with:
-          channel: "release"
+          channel: "beta"
       - run: flutter pub get
       - run: flutter build apk
       - run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/simpletodo.apk
