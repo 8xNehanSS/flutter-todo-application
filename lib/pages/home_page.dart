@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/pages/deleted_tasks.dart';
 import 'package:flutter_todo/utils/todo_list.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -80,9 +81,16 @@ class _HomePageState extends State<HomePage> {
     final file = await _localFile;
     final contents = await file.readAsString();
     final newContents = contents.split('\n');
-    newContents.removeAt(index);
+    String deletedTask = newContents.removeAt(index);
+    final delFile = await _localDelFile;
+    delFile.writeAsString('$deletedTask\n', mode: FileMode.append);
     final newFile = await _localFile;
     return newFile.writeAsString(newContents.join('\n'));
+  }
+
+  Future<File> get _localDelFile async {
+    final path = await _localPath;
+    return File('$path/deletedTasks.txt');
   }
 
   void checkBoxChanged(int index) {
@@ -138,6 +146,70 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.deepPurple,
+              ),
+              child: ListTile(
+                title: const Center(
+                  child: Text(
+                    'Simple ToDo',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text(
+                'ToDo List',
+                style: TextStyle(
+                  fontSize: 19,
+                  color: Colors.deepPurple,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text(
+                'Deleted Tasks',
+                style: TextStyle(
+                  fontSize: 19,
+                  color: Colors.deepPurple,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeletedPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(
+                'About Simple ToDo',
+                style: TextStyle(
+                  fontSize: 19,
+                  color: Colors.deepPurple,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: todoList.isEmpty
           ? const Center(
