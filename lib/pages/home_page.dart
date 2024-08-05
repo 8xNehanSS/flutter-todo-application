@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                 'ToDo List',
                 style: TextStyle(
                   fontSize: 19,
-                  color: Colors.deepPurple,
+                  color: Colors.white,
                 ),
               ),
               onTap: () {
@@ -198,14 +198,15 @@ class _HomePageState extends State<HomePage> {
                 'Deleted Tasks',
                 style: TextStyle(
                   fontSize: 19,
-                  color: Colors.deepPurple,
+                  color: Colors.white,
                 ),
               ),
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                await Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => DeletedPage()),
                 );
+                loadTasks();
               },
             ),
             ListTile(
@@ -213,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                 'About Simple ToDo',
                 style: TextStyle(
                   fontSize: 19,
-                  color: Colors.deepPurple,
+                  color: Colors.white,
                 ),
               ),
               onTap: () {
